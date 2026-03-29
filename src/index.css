@@ -19,36 +19,33 @@
   }
 
   @keyframes bubblyPulse {
-    0%, 100% {
-      opacity: 0.15;
-      transform: scale(1) rotate(0deg);
-    }
-    50% {
-      opacity: 0.3;
-      transform: scale(1.05) rotate(5deg);
-    }
+    0%, 100% { opacity: 0.15; transform: scale(1) rotate(0deg); }
+    50% { opacity: 0.3; transform: scale(1.05) rotate(5deg); }
+  }
+
+  /*Timer Shake*/
+  @keyframes timerShake {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-1px, 1px); }
+    50% { transform: translate(1px, -1px); }
+    75% { transform: translate(-1px, -1px); }
   }
 
   .animate-pulse {
     animation: bubblyPulse 8s ease-in-out infinite;
   }
 
-  .animation-delay-1000 {
-    animation-delay: 1s;
+  .animate-timer-shake {
+    animation: timerShake 0.3s ease-in-out infinite;
   }
 
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-
-  .animation-delay-4000 {
-    animation-delay: 4s;
-  }
-
+  .animation-delay-1000 { animation-delay: 1s; }
+  .animation-delay-2000 { animation-delay: 2s; }
+  .animation-delay-4000 { animation-delay: 4s; }
 
   .scrollbar-bubbly-green {
     scrollbar-width: thin;
-    scrollbar-color: #2e303a #09090b;
+    scrollbar-color: #2e303a transparent;
   }
 
   .scrollbar-bubbly-green::-webkit-scrollbar {
@@ -57,8 +54,7 @@
   }
 
   .scrollbar-bubbly-green::-webkit-scrollbar-track {
-    @apply bg-zinc-950 rounded-full;
-    margin: 10px 0;
+    background: transparent;
   }
 
   .scrollbar-bubbly-green::-webkit-scrollbar-thumb {

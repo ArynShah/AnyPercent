@@ -11,7 +11,6 @@ import {
 
 import logo from './assets/anypercentlogoTrans.png';
 
-// --- DATA STRUCTURE: Strictly 2-Layer with Green Theme ---
 const ZONES = [
   { id: 'kitchen', title: 'Kitchen', icon: '🍳', primary: 'emerald', colors: 'from-emerald-400 to-green-500' },
   { id: 'food', title: 'Food', icon: '🍕', primary: 'teal', colors: 'from-teal-400 to-cyan-500' },
@@ -21,79 +20,19 @@ const ZONES = [
   { id: 'outdoor', title: 'Outdoor', icon: '🌱', primary: 'green', colors: 'from-emerald-500 to-green-600' }
 ];
 
-// Mapping Categories immediately so hierarchy is 2-layer
 const TASK_LIST = {
-  'cooking': {
-    zone: 'kitchen', title: 'Cooking',
-    runs: [
-      { id: 'scrambled_eggs', title: 'Scrambled eggs', splits: ['Crack/Whisk', 'Pan Fry', 'Plate'] },
-      { id: 'fried_rice', title: 'Fried rice', splits: ['Prep Veg', 'Fry Rice', 'Serve'] }
-    ]
-  },
-  'fruits_veg': {
-    zone: 'kitchen', title: 'Fruits & Veg',
-    runs: [
-      { id: 'peel_orange', title: 'Peeling orange', splits: ['Peel', 'Separate'] },
-      { id: 'slice_apple', title: 'Slicing apple', splits: ['Core', 'Slice'] },
-      { id: 'dice_onion', title: 'Dicing onion', splits: ['Peel', 'Dice'] }
-    ]
-  },
-  'washing_dishes': {
-    zone: 'kitchen', title: 'Washing dishes',
-    runs: [
-      { id: 'wash_10', title: 'Wash 10 Dishes', splits: ['Washing', 'Rinse'] },
-      { id: 'unload_dw', title: 'Unload Dishwasher', splits: ['Bottom Rack', 'Top Rack', 'Cutlery'] }
-    ]
-  },
-  'banana': {
-    zone: 'food', title: 'Banana', runs: [{ id: 'eat_banana', title: 'Peel + Eat', splits: ['Complete'] }]
-  },
-  'hot_dog': {
-    zone: 'food', title: 'Hot Dog', runs: [{ id: 'hd_1', title: '1 dog', splits: ['Complete'] }, { id: 'hd_3', title: '3 dogs', splits: ['Dog 1', 'Dog 2', 'Dog 3'] }]
-  },
-  'donut': {
-    zone: 'food', title: 'Donuts', runs: [{ id: 'donut_3', title: '3 doughnut doughnut', splits: ['Donut 1', 'Donut 2', 'Donut 3'] }]
-  },
-  'pizza': {
-    zone: 'food', title: 'Pizza', runs: [{ id: 'pizza_1', title: '1 pizza', splits: ['Complete'] }, { id: 'pizza_3', title: '3 pizzas', splits: ['Pizza 1', 'Pizza 2', 'Pizza 3'] }]
-  },
-  'morning': {
-    zone: 'bedroom', title: 'Morning Routines',
-    runs: [
-      { id: 'get_up', title: 'Get Up Routine', splits: ['Get Up', 'Get Dressed'] },
-      { id: 'make_bed', title: 'Making bed', splits: ['Clear Bed', 'Pull Sheets', 'Pillows'] }
-    ]
-  },
-  'dressed': {
-    zone: 'bedroom', title: 'Getting dressed',
-    runs: [
-      { id: 'dress_formal', title: 'Formal wear', splits: ['Formal Top', ' Formal Bottom', 'Shoes'] },
-      { id: 'dress_casual', title: 'Casual', splits: ['Sweats', 'Shoes'] }
-    ]
-  },
-  'hygiene': {
-    zone: 'washroom', title: 'Hygiene',
-    runs: [
-      { id: 'teeth', title: 'Teeth Cleaning', splits: ['Brush', 'Floss'] },
-      { id: 'shower', title: 'Shower Any%', splits: ['Wash', 'Dry'] }
-    ]
-  },
-  'grooming': {
-    zone: 'washroom', title: 'Grooming',
-    runs: [{ id: 'shave_full', title: 'Shaving beard', splits: ['Cream', 'Shave', 'Aftershave'] }, { id: 'nails_both', title: 'Clipping nails', splits: ['Hands', 'Feet'] }]
-  },
-  'shoes': {
-    zone: 'everyday', title: 'Tying shoes',
-    runs: [
-      { id: 'shoe_1', title: '1 shoe', splits: ['Complete'] },
-      { id: 'shoe_2', title: '2 shoes', splits: ['First Shoe', 'Second Shoe'] },
-      { id: 'shoe_lace', title: 'Lacing full shoe', splits: ['Middle', 'Complete'] }
-    ]
-  },
-  'yard': {
-    zone: 'outdoor', title: 'Yard Work',
-    runs: [{ id: 'mow', title: 'Mowing Lawn', splits: ['Start Engine', 'Mow', 'Put Away'] }]
-  }
+  'cooking': { id: 'cooking', zone: 'kitchen', title: 'Cooking', runs: [{ id: 'scrambled_eggs', title: 'Scrambled eggs', splits: ['Crack/Whisk', 'Pan Fry', 'Plate'] }, { id: 'fried_rice', title: 'Fried rice', splits: ['Prep Veg', 'Fry Rice', 'Serve'] }] },
+  'fruits_veg': { id: 'fruits_veg', zone: 'kitchen', title: 'Fruits & Veg', runs: [{ id: 'peel_orange', title: 'Peeling orange', splits: ['Peel', 'Separate'] }, { id: 'slice_apple', title: 'Slicing apple', splits: ['Core', 'Slice'] }, { id: 'dice_onion', title: 'Dicing onion', splits: ['Peel', 'Dice'] }] },
+  'washing_dishes': { id: 'washing_dishes', zone: 'kitchen', title: 'Washing dishes', runs: [{ id: 'wash_10', title: 'Wash 10 Dishes', splits: ['Washing', 'Rinse'] }, { id: 'unload_dw', title: 'Unload Dishwasher', splits: ['Bottom Rack', 'Top Rack', 'Cutlery'] }] },
+  'banana': { id: 'banana', zone: 'food', title: 'Banana', runs: [{ id: 'eat_banana', title: 'Peel + Eat', splits: ['Complete'] }] },
+  'hot_dog': { id: 'hot_dog', zone: 'food', title: 'Hot Dog', runs: [{ id: 'hd_1', title: '1 dog', splits: ['Complete'] }, { id: 'hd_3', title: '3 dogs', splits: ['Dog 1', 'Dog 2', 'Dog 3'] }] },
+  'donut': { id: 'donut', zone: 'food', title: 'Donuts', runs: [{ id: 'donut_3', title: '3 doughnut doughnut', splits: ['Donut 1', 'Donut 2', 'Donut 3'] }] },
+  'morning': { id: 'morning', zone: 'bedroom', title: 'Morning Routines', runs: [{ id: 'get_up', title: 'Get Up Routine', splits: ['Get Up', 'Get Dressed'] }, { id: 'make_bed', title: 'Making bed', splits: ['Clear Bed', 'Pull Sheets', 'Pillows'] }] },
+  'dressed': { id: 'dressed', zone: 'bedroom', title: 'Getting dressed', runs: [{ id: 'dress_formal', title: 'Formal wear', splits: ['Formal Top', ' Formal Bottom', 'Shoes'] }, { id: 'dress_casual', title: 'Casual', splits: ['Sweats', 'Shoes'] }] },
+  'hygiene': { id: 'hygiene', zone: 'washroom', title: 'Hygiene', runs: [{ id: 'teeth', title: 'Teeth Cleaning', splits: ['Brush', 'Floss'] }, { id: 'shower', title: 'Shower Any%', splits: ['Wash', 'Dry'] }] },
+  'grooming': { id: 'grooming', zone: 'washroom', title: 'Grooming', runs: [{ id: 'shave_full', title: 'Shaving beard', splits: ['Cream', 'Shave', 'Aftershave'] }, { id: 'nails_both', title: 'Clipping nails', splits: ['Hands', 'Feet'] }] },
+  'shoes': { id: 'shoes', zone: 'everyday', title: 'Tying shoes', runs: [{ id: 'shoe_1', title: '1 shoe', splits: ['Complete'] }, { id: 'shoe_2', title: '2 shoes', splits: ['First Shoe', 'Second Shoe'] }, { id: 'shoe_lace', title: 'Lacing full shoe', splits: ['Middle', 'Complete'] }] },
+  'yard': { id: 'yard', zone: 'outdoor', title: 'Yard Work', runs: [{ id: 'mow', title: 'Mowing Lawn', splits: ['Start Engine', 'Mow', 'Put Away'] }] }
 };
 
 export default function App() {
@@ -102,15 +41,14 @@ export default function App() {
   const [authMode, setAuthMode] = useState('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [authLoading, setAuthLoading] = useState(true);
 
-  // APP NAVIGATION 
   const [view, setView] = useState('home'); 
   const [activeZone, setActiveZone] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeRun, setActiveRun] = useState(null);
   
-  // Leaderboard & Following
   const [leaderboard, setLeaderboard] = useState([]);
   const [leaderboardTab, setLeaderboardTab] = useState('global');
   const [hideRepeats, setHideRepeats] = useState(true); 
@@ -121,7 +59,6 @@ export default function App() {
   const [resolvedFollowers, setResolvedFollowers] = useState([]); 
   const [selectedRun, setSelectedRun] = useState(null); 
   
-  // Timer & Submission
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedMs, setElapsedMs] = useState(0);
   const [currentSplitIndex, setCurrentSplitIndex] = useState(0);
@@ -178,6 +115,7 @@ export default function App() {
       if (isGoogle) {
         result = await signInWithPopup(auth, new GoogleAuthProvider());
       } else if (authMode === 'signup') {
+        if (password !== confirmPassword) return alert("Passwords do not match!");
         result = await createUserWithEmailAndPassword(auth, email, password);
       } else {
         result = await signInWithEmailAndPassword(auth, email, password);
@@ -330,6 +268,7 @@ export default function App() {
       setVideoUrl('');
       cancelRun(); 
     } catch (error) {
+      console.error(error);
       alert("Failed to submit run.");
     }
   };
@@ -377,10 +316,10 @@ export default function App() {
   };
 
   const getActiveBorder = () => {
-    if (activeZone?.primary === 'lime') return 'focus:border-lime-400';
-    if (activeZone?.primary === 'teal') return 'focus:border-teal-400';
-    if (activeZone?.primary === 'emerald') return 'focus:border-emerald-400';
-    return 'focus:border-green-400';
+    if (activeZone?.primary === 'lime') return 'border-lime-400';
+    if (activeZone?.primary === 'teal') return 'border-teal-400';
+    if (activeZone?.primary === 'emerald') return 'border-emerald-400';
+    return 'border-green-400';
   };
 
   if (authLoading) return <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-green-500 font-bold tracking-widest animate-pulse">Loading Any%...</div>;
@@ -403,12 +342,19 @@ export default function App() {
           <div className="mb-10 w-full flex justify-center">
             <img src={logo} alt="Any% Logo" className="h-28 object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]" />
           </div>
-          <form onSubmit={(e) => handleAuth(e, false)} className="w-full flex flex-col gap-4 mb-6">
+          <form onSubmit={(e) => handleAuth(e, false)} className="w-full flex flex-col gap-3 mb-6">
             <input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} required 
               className="bg-zinc-900 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-green-400 focus:bg-zinc-800 transition-all shadow-inner text-white placeholder:text-zinc-500" />
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required 
               className="bg-zinc-900 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-green-400 focus:bg-zinc-800 transition-all shadow-inner text-white placeholder:text-zinc-500" />
-            <button type="submit" className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-500 text-zinc-950 font-black text-xl py-4 rounded-full shadow-lg shadow-green-500/30 active:scale-95 transition-all mt-2">
+            
+            {/*Confirm Password only shows when registering */}
+            {authMode === 'signup' && (
+              <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required 
+                className="bg-zinc-900 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-green-400 focus:bg-zinc-800 transition-all shadow-inner text-white placeholder:text-zinc-500" />
+            )}
+
+            <button type="submit" className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-500 text-zinc-950 font-black text-xl py-4 rounded-full shadow-lg shadow-green-500/30 active:scale-95 transition-all mt-3">
               {authMode === 'login' ? 'Continue ▻' : 'Register Now ▻'}
             </button>
           </form>
@@ -474,7 +420,7 @@ export default function App() {
             <img src={logo} alt="Logo" className="h-10 object-contain drop-shadow-[0_0_10px_rgba(34,197,94,0.3)] transition-transform group-hover:scale-105" />
           </div>
           <div className="flex gap-2">
-            <button onClick={() => setView('friends')} className="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-full text-sm font-bold shadow-sm transition-all active:scale-95">👥 My Network</button>
+            <button onClick={() => setView('friends')} className="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-full text-sm font-bold shadow-sm transition-all active:scale-95">👥 Network Hub</button>
             <button onClick={() => setView('profile')} className="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-full text-sm font-bold shadow-sm transition-all active:scale-95">⚙️ Profile</button>
           </div>
         </header>
@@ -502,11 +448,11 @@ export default function App() {
         {view === 'friends' && (
           <div className="p-6 max-w-md mx-auto mt-6">
             <button onClick={() => setView('home')} className="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center mb-6 hover:bg-zinc-800 transition shadow-sm border border-zinc-800">←</button>
-            <h2 className="text-3xl font-black mb-6">My Network</h2>
+            <h2 className="text-3xl font-black mb-6">Network Hub</h2>
             
             <form onSubmit={handleAddFriend} className="flex gap-2 mb-8 bg-zinc-900/80 border border-zinc-700 rounded-full p-1.5 shadow-inner">
               <input 
-                type="text" placeholder="Enter Runner Username" value={friendSearch} onChange={(e) => setFriendSearch(e.target.value)}
+                type="text" placeholder="Enter Runner's ID" value={friendSearch} onChange={(e) => setFriendSearch(e.target.value)}
                 className="flex-1 bg-transparent px-4 outline-none font-semibold text-white placeholder:text-zinc-600"
               />
               <button type="submit" className="bg-green-500 text-zinc-950 px-6 py-3 rounded-full font-black shadow-md hover:bg-green-400 transition-all">Follow ▻</button>
@@ -612,7 +558,7 @@ export default function App() {
 
         {view === 'runList' && activeCategory && activeRun && (
           <div className="flex flex-col h-[calc(100vh-80px)] max-w-4xl mx-auto w-full relative">
-            <div className="p-6 pb-2">
+            <div className="p-6 pb-2 shrink-0">
               <button onClick={() => setView('categoryList')} className="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center mb-4 hover:bg-zinc-800 transition shadow-sm border border-zinc-800">←</button>
               <h1 className="text-sm font-bold mb-2 text-zinc-500 uppercase tracking-widest">{activeCategory.title} Categories</h1>
               
@@ -631,7 +577,7 @@ export default function App() {
               </button>
             </div>
 
-            <main className="flex-1 p-6 overflow-y-auto relative pr-2 scrollbar-bubbly-green">
+            <main className="flex-1 min-h-0 p-6 overflow-y-auto relative pr-2 scrollbar-bubbly-green">
               <div className="flex justify-between items-center mb-6">
                 <div className="flex gap-2 bg-zinc-900 p-1.5 rounded-2xl shadow-inner border border-zinc-800">
                   <button onClick={() => setLeaderboardTab('global')} className={'px-6 py-2.5 text-sm font-bold rounded-xl transition-all ' + (leaderboardTab === 'global' ? 'bg-zinc-700 text-white shadow-md' : 'text-zinc-500 hover:text-white')}>Global</button>
@@ -688,19 +634,23 @@ export default function App() {
           </div>
         )}
 
+        {/* TIMER VIEW (SCROLL-LOCKED TO VIEWPORT & GIANT BUTTON) */}
         {view === 'timer' && activeRun && (
-          <div className="flex flex-col h-screen p-6 max-w-md mx-auto w-full relative z-10 font-sans">
-            <div className="flex justify-between items-center mb-8 bg-zinc-900 p-2 pl-4 pr-2 rounded-full border border-zinc-800 shadow-inner">
+          <div className="flex flex-col h-[100dvh] p-4 sm:p-6 max-w-md mx-auto w-full relative z-10 font-sans overflow-hidden">
+            
+            {/* Header */}
+            <div className="flex justify-between items-center mb-4 bg-zinc-900 p-2 pl-4 pr-2 rounded-full border border-zinc-800 shadow-inner shrink-0">
               <span className="text-sm font-bold text-white truncate pr-4">{activeRun.title}</span>
               <button onClick={cancelRun} className="bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded-full text-xs font-bold transition-all shadow-md active:scale-95">Abort ✕</button>
             </div>
             
-            <div className="flex-1 space-y-3 overflow-y-auto pr-2 scrollbar-bubbly-green">
+            {/* Splits (Scrolls internally if there are many) */}
+            <div className="flex-1 min-h-0 overflow-y-auto space-y-2 pr-2 scrollbar-bubbly-green">
               {activeRun.splits.map((split, idx) => {
                 const isCompleted = idx < currentSplitIndex || (!isRunning && recordedSplits.length > 0);
                 const isActive = idx === currentSplitIndex && isRunning;
                 return (
-                  <div key={idx} className={'flex justify-between p-5 rounded-3xl transition-all duration-300 border shadow-sm ' + (isActive ? 'bg-zinc-800 border-2 scale-[1.02] ' + getActiveBorder() + ' ' + getActiveTextColor() + ' ' + getGlowColor() : 'bg-zinc-900 border-zinc-800 text-zinc-400') + (isCompleted ? ' opacity-40' : '')}>
+                  <div key={idx} className={'flex justify-between p-4 sm:p-5 rounded-3xl transition-all duration-300 border shadow-sm ' + (isActive ? 'bg-zinc-800 border-2 scale-[1.02] ' + getActiveBorder() + ' ' + getActiveTextColor() + ' ' + getGlowColor() : 'bg-zinc-900 border-zinc-800 text-zinc-400') + (isCompleted ? ' opacity-40' : '')}>
                     <span className="text-lg font-bold tracking-tight">{split}</span>
                     <span className="text-xl font-bold tabular-nums">{isCompleted ? formatTime(recordedSplits[idx]) : '-:--.--'}</span>
                   </div>
@@ -708,14 +658,16 @@ export default function App() {
               })}
             </div>
 
-            <div className="mt-8 mb-6 bg-zinc-950 p-8 rounded-[3rem] border border-zinc-800 shadow-inner flex justify-center">
-              <div className="text-[4rem] sm:text-[5rem] leading-none font-black tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] text-white">
+            {/* Giant Timer */}
+            <div className="my-6 bg-zinc-950/80 p-6 rounded-[3rem] border border-zinc-800 shadow-inner flex justify-center shrink-0">
+              <div className={`text-[15vw] sm:text-[5rem] leading-none font-black tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] text-white ${isRunning ? 'animate-timer-shake text-green-400 drop-shadow-[0_0_20px_rgba(74,222,128,0.4)]' : ''}`}>
                 {formatTime(elapsedMs)}
               </div>
             </div>
             
-            <div className="pb-8">
-              <button onClick={handleSplit} className={'w-full py-8 rounded-[2.5rem] text-4xl font-black transition-all active:scale-95 shadow-xl ' + (!isRunning ? 'bg-white text-zinc-950 hover:bg-zinc-200' : getPrimaryButton() + ' text-zinc-950')}>
+            {/* Giant Button */}
+            <div className="pb-4 shrink-0">
+              <button onClick={handleSplit} className={'w-full h-[18vh] min-h-[100px] rounded-[3rem] text-4xl sm:text-5xl font-black transition-all active:scale-95 shadow-xl ' + (!isRunning ? 'bg-white text-zinc-950 hover:bg-zinc-200' : getPrimaryButton() + ' text-zinc-950')}>
                 {!isRunning && recordedSplits.length === 0 ? 'Start ▻' : 'Split'}
               </button>
             </div>
