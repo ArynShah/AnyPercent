@@ -54,6 +54,9 @@ const TASK_LIST = {
   'donut': {
     zone: 'food', title: 'Donuts', runs: [{ id: 'donut_3', title: '3 doughnut doughnut', splits: ['Donut 1', 'Donut 2', 'Donut 3'] }]
   },
+  'pizza': {
+    zone: 'food', title: 'Pizza', runs: [{ id: 'pizza_1', title: '1 pizza', splits: ['Complete'] }, { id: 'pizza_3', title: '3 pizzas', splits: ['Pizza 1', 'Pizza 2', 'Pizza 3'] }]
+  },
   'morning': {
     zone: 'bedroom', title: 'Morning Routines',
     runs: [
