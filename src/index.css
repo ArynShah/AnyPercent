@@ -1,5 +1,67 @@
 @import "tailwindcss";
 
-body {
-  @apply bg-zinc-950 text-white; 
+@layer base {
+  :root {
+    --color-zinc-950: #09090b;
+    --color-white: #ffffff;
+    --color-green-500: #22c55e;
+    --color-emerald-500: #10b981;
+    --color-teal-500: #14b8a6;
+    --color-cyan-500: #06b6d4;
+    --color-lime-500: #84cc16;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    @apply bg-zinc-950 text-white font-sans;
+    overflow-x: hidden;
+  }
+
+  @keyframes bubblyPulse {
+    0%, 100% {
+      opacity: 0.15;
+      transform: scale(1) rotate(0deg);
+    }
+    50% {
+      opacity: 0.3;
+      transform: scale(1.05) rotate(5deg);
+    }
+  }
+
+  .animate-pulse {
+    animation: bubblyPulse 8s ease-in-out infinite;
+  }
+
+  .animation-delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+
+  .scrollbar-bubbly-green {
+    scrollbar-width: thin;
+    scrollbar-color: #2e303a #09090b;
+  }
+
+  .scrollbar-bubbly-green::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-bubbly-green::-webkit-scrollbar-track {
+    @apply bg-zinc-950 rounded-full;
+    margin: 10px 0;
+  }
+
+  .scrollbar-bubbly-green::-webkit-scrollbar-thumb {
+    @apply bg-zinc-700 rounded-full hover:bg-zinc-600;
+  }
 }
