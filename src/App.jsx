@@ -192,7 +192,7 @@ const TASK_LIST = {
         id: 'teeth',
         title: 'Teeth',
         runs: [
-          { id: 'teeth', title: 'Teeth cleaning routine', splits: ['Brush', 'Floss', 'Finish'] }
+          { id: 'teeth', title: 'Teeth cleaning routine', splits: ['Finish'] }
         ]
       },
       {
