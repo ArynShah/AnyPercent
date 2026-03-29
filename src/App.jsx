@@ -21,18 +21,253 @@ const ZONES = [
 ];
 
 const TASK_LIST = {
-  'cooking': { id: 'cooking', zone: 'kitchen', title: 'Cooking', runs: [{ id: 'scrambled_eggs', title: 'Scrambled eggs', splits: ['Crack/Whisk', 'Pan Fry', 'Plate'] }, { id: 'fried_rice', title: 'Fried rice', splits: ['Prep Veg', 'Fry Rice', 'Serve'] }] },
-  'fruits_veg': { id: 'fruits_veg', zone: 'kitchen', title: 'Fruits & Veg', runs: [{ id: 'peel_orange', title: 'Peeling orange', splits: ['Peel', 'Separate'] }, { id: 'slice_apple', title: 'Slicing apple', splits: ['Core', 'Slice'] }, { id: 'dice_onion', title: 'Dicing onion', splits: ['Peel', 'Dice'] }] },
-  'washing_dishes': { id: 'washing_dishes', zone: 'kitchen', title: 'Washing dishes', runs: [{ id: 'wash_10', title: 'Wash 10 Dishes', splits: ['Washing', 'Rinse'] }, { id: 'unload_dw', title: 'Unload Dishwasher', splits: ['Bottom Rack', 'Top Rack', 'Cutlery'] }] },
-  'banana': { id: 'banana', zone: 'food', title: 'Banana', runs: [{ id: 'eat_banana', title: 'Peel + Eat', splits: ['Complete'] }] },
-  'hot_dog': { id: 'hot_dog', zone: 'food', title: 'Hot Dog', runs: [{ id: 'hd_1', title: '1 dog', splits: ['Complete'] }, { id: 'hd_3', title: '3 dogs', splits: ['Dog 1', 'Dog 2', 'Dog 3'] }] },
-  'donut': { id: 'donut', zone: 'food', title: 'Donuts', runs: [{ id: 'donut_3', title: '3 doughnut doughnut', splits: ['Donut 1', 'Donut 2', 'Donut 3'] }] },
-  'morning': { id: 'morning', zone: 'bedroom', title: 'Morning Routines', runs: [{ id: 'get_up', title: 'Get Up Routine', splits: ['Get Up', 'Get Dressed'] }, { id: 'make_bed', title: 'Making bed', splits: ['Clear Bed', 'Pull Sheets', 'Pillows'] }] },
-  'dressed': { id: 'dressed', zone: 'bedroom', title: 'Getting dressed', runs: [{ id: 'dress_formal', title: 'Formal wear', splits: ['Formal Top', ' Formal Bottom', 'Shoes'] }, { id: 'dress_casual', title: 'Casual', splits: ['Sweats', 'Shoes'] }] },
-  'hygiene': { id: 'hygiene', zone: 'washroom', title: 'Hygiene', runs: [{ id: 'teeth', title: 'Teeth Cleaning', splits: ['Brush', 'Floss'] }, { id: 'shower', title: 'Shower Any%', splits: ['Wash', 'Dry'] }] },
-  'grooming': { id: 'grooming', zone: 'washroom', title: 'Grooming', runs: [{ id: 'shave_full', title: 'Shaving beard', splits: ['Cream', 'Shave', 'Aftershave'] }, { id: 'nails_both', title: 'Clipping nails', splits: ['Hands', 'Feet'] }] },
-  'shoes': { id: 'shoes', zone: 'everyday', title: 'Tying shoes', runs: [{ id: 'shoe_1', title: '1 shoe', splits: ['Complete'] }, { id: 'shoe_2', title: '2 shoes', splits: ['First Shoe', 'Second Shoe'] }, { id: 'shoe_lace', title: 'Lacing full shoe', splits: ['Middle', 'Complete'] }] },
-  'yard': { id: 'yard', zone: 'outdoor', title: 'Yard Work', runs: [{ id: 'mow', title: 'Mowing Lawn', splits: ['Start Engine', 'Mow', 'Put Away'] }] }
+  kitchen: {
+    id: 'kitchen',
+    zone: 'kitchen',
+    title: 'Kitchen',
+    categories: [
+      {
+        id: 'dishes',
+        title: 'Washing dishes',
+        runs: [
+          {
+            id: 'wash_10_dishes',
+            title: 'Wash 10 dishes by hand',
+            splits: Array.from({ length: 10 }, (_, i) => `Dish ${i + 1}`)
+          },
+          {
+            id: 'unload_dishwasher',
+            title: 'Unload the dishwasher',
+            splits: ['Bottom rack', 'Top rack', 'Cutlery', 'Complete']
+          }
+        ]
+      },
+      {
+        id: 'cooking',
+        title: 'Cooking',
+        runs: [
+          {
+            id: 'scrambled_eggs',
+            title: 'Scrambled eggs',
+            splits: ['Prep', 'Cook', 'Plate']
+          },
+          {
+            id: 'fried_rice',
+            title: 'Fried rice',
+            splits: ['Prep', 'Cook', 'Serve']
+          }
+        ]
+      },
+      {
+        id: 'fruits_veg',
+        title: 'Fruits & vegetables',
+        runs: [
+          {
+            id: 'peel_orange',
+            title: 'Peeling orange',
+            splits: ['Peel', 'Separate']
+          },
+          {
+            id: 'slice_apple',
+            title: 'Slicing an apple',
+            splits: ['Slice', 'Finish']
+          },
+          {
+            id: 'dice_onion',
+            title: 'Dicing an onion',
+            splits: ['Dice', 'Finish']
+          },
+          {
+            id: 'peel_potato',
+            title: 'Peel a potato',
+            splits: ['Complete']
+          }
+        ]
+      }
+    ]
+  },
+
+  food: {
+    id: 'food',
+    zone: 'food',
+    title: 'Food',
+    categories: [
+      {
+        id: 'simple',
+        title: 'Simple food',
+        runs: [
+          {
+            id: 'banana',
+            title: 'Peel + eat banana',
+            splits: ['Complete']
+          }
+        ]
+      },
+      {
+        id: 'hotdog',
+        title: 'Hot dog',
+        runs: [
+          { id: 'hotdog_1', title: '1 hot dog', splits: ['Complete'] },
+          { id: 'hotdog_3', title: '3 hot dogs', splits: ['Hot dog 1', 'Hot dog 2', 'Hot dog 3'] },
+          { id: 'hotdog_5', title: '5 hot dogs', splits: ['Hot dog 1','Hot dog 2','Hot dog 3','Hot dog 4','Hot dog 5'] }
+        ]
+      },
+      {
+        id: 'water',
+        title: 'Water',
+        runs: [
+          { id: 'water_12oz', title: '12 oz', splits: ['Finish'] },
+          { id: 'water_1l', title: '1 liter', splits: ['Halfway', 'Finish'] }
+        ]
+      },
+      {
+        id: 'icecream',
+        title: 'Ice cream',
+        runs: [
+          { id: 'icecream_1', title: '1 scoop', splits: ['Complete'] },
+          { id: 'icecream_2', title: '2 scoops', splits: ['Scoop 1', 'Scoop 2'] },
+          { id: 'icecream_3', title: '3 scoops', splits: ['Scoop 1', 'Scoop 2', 'Scoop 3'] }
+        ]
+      },
+      {
+        id: 'donut',
+        title: 'Donut',
+        runs: [
+          { id: 'donut_3', title: '3 donuts', splits: ['Donut 1','Donut 2','Donut 3'] },
+          { id: 'donut_half', title: 'Half dozen', splits: ['Donut 1','Donut 2','Donut 3','Donut 4','Donut 5','Donut 6'] }
+        ]
+      },
+      {
+        id: 'pizza',
+        title: 'Pizza',
+        runs: [
+          { id: 'pizza_1', title: '1 slice', splits: ['Complete'] },
+          { id: 'pizza_3', title: '3 slices', splits: ['Slice 1','Slice 2','Slice 3'] },
+          { id: 'pizza_6', title: '6 slices', splits: ['Slice 1','Slice 2','Slice 3','Slice 4','Slice 5','Slice 6'] }
+        ]
+      }
+    ]
+  },
+
+  bedroom: {
+    id: 'bedroom',
+    zone: 'bedroom',
+    title: 'Bedroom',
+    categories: [
+      {
+        id: 'routine',
+        title: 'Routine',
+        runs: [
+          { id: 'morning_routine', title: 'Morning Routine', splits: ['Wake up', 'Get ready'] },
+          { id: 'getting_undressed', title: 'Getting undressed', splits: ['Complete'] }
+        ]
+      },
+      {
+        id: 'bed',
+        title: 'Making a bed',
+        runs: [
+          { id: 'bed_king', title: 'King', splits: ['Complete'] },
+          { id: 'bed_queen', title: 'Queen', splits: ['Complete'] },
+          { id: 'bed_twin', title: 'Twin', splits: ['Complete'] },
+          { id: 'bed_bunk', title: 'Bunk', splits: ['Complete'] }
+        ]
+      },
+      {
+        id: 'dressing',
+        title: 'Getting dressed',
+        runs: [
+          { id: 'dress_formal', title: 'Formal (suit)', splits: ['Complete'] },
+          { id: 'dress_casual', title: 'Casual (sweat suit)', splits: ['Complete'] }
+        ]
+      }
+    ]
+  },
+
+  washroom: {
+    id: 'washroom',
+    zone: 'washroom',
+    title: 'Washroom',
+    categories: [
+      {
+        id: 'teeth',
+        title: 'Teeth',
+        runs: [
+          { id: 'teeth', title: 'Teeth cleaning routine', splits: ['Brush', 'Floss', 'Finish'] }
+        ]
+      },
+      {
+        id: 'shower',
+        title: 'Shower',
+        runs: [
+          { id: 'shower', title: 'Shower', splits: ['Wash', 'Rinse', 'Dry'] }
+        ]
+      },
+      {
+        id: 'shaving',
+        title: 'Shaving',
+        runs: [
+          { id: 'shave_full', title: 'Full beard', splits: ['Trim', 'Shave', 'Finish'] },
+          { id: 'shave_stubble', title: 'Stubble', splits: ['Shave', 'Finish'] }
+        ]
+      },
+      {
+        id: 'care',
+        title: 'Care',
+        runs: [
+          { id: 'skincare', title: 'Skin care routine', splits: ['Cleanse', 'Apply', 'Finish'] }
+        ]
+      },
+      {
+        id: 'nails',
+        title: 'Nails',
+        runs: [
+          { id: 'nails_hands', title: 'Hands', splits: ['Left hand', 'Right hand'] },
+          { id: 'nails_feet', title: 'Feet', splits: ['Left foot', 'Right foot'] },
+          { id: 'nails_both', title: 'Both', splits: ['Hands', 'Feet'] }
+        ]
+      }
+    ]
+  },
+
+  everyday: {
+    id: 'everyday',
+    zone: 'everyday',
+    title: 'Everyday',
+    categories: [
+      {
+        id: 'shoes',
+        title: 'Shoes',
+        runs: [
+          { id: 'shoe_single', title: 'Single shoe', splits: ['Complete'] },
+          { id: 'shoe_pair', title: '2 shoes', splits: ['Left shoe', 'Right shoe'] },
+          { id: 'lace_full', title: 'Lacing a full shoe', splits: ['Start', 'Middle', 'Finish'] }
+        ]
+      },
+      {
+        id: 'tasks',
+        title: 'Tasks',
+        runs: [
+          { id: 'mcdonalds_kiosk', title: 'McDonalds kiosk', splits: ['Order', 'Pay', 'Complete'] }
+        ]
+      }
+    ]
+  },
+
+  outdoor: {
+    id: 'outdoor',
+    zone: 'outdoor',
+    title: 'Outdoor',
+    categories: [
+      {
+        id: 'yard',
+        title: 'Yard work',
+        runs: [
+          { id: 'mow_lawn', title: 'Mowing lawn', splits: ['Start', 'Mow', 'Finish'] },
+          { id: 'shovel_snow', title: 'Shoveling snow', splits: ['Start', 'Clear area', 'Finish'] }
+        ]
+      }
+    ]
+  }
 };
 
 export default function App() {
@@ -322,7 +557,7 @@ export default function App() {
     return 'border-green-400';
   };
 
-  if (authLoading) return <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-green-500 font-bold tracking-widest animate-pulse">Loading Any%...</div>;
+  if (authLoading) return <div className="min-h-[100dvh] bg-zinc-950 flex items-center justify-center text-green-500 font-bold tracking-widest animate-pulse">Loading Any%...</div>;
 
   const BubblyBackground = () => (
     <div className="fixed inset-0 overflow-hidden z-0 pointer-events-none">
@@ -335,7 +570,7 @@ export default function App() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col items-center justify-center p-5 relative overflow-hidden font-sans">
+      <div className="min-h-[100dvh] bg-zinc-950 text-zinc-100 flex flex-col items-center justify-center p-5 relative overflow-hidden font-sans">
         <BubblyBackground />
         
         <div className="w-full max-w-sm bg-white/5 backdrop-blur-3xl border border-white/10 p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-10 flex flex-col items-center">
@@ -348,14 +583,13 @@ export default function App() {
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required 
               className="bg-zinc-900 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-green-400 focus:bg-zinc-800 transition-all shadow-inner text-white placeholder:text-zinc-500" />
             
-            {/*Confirm Password only shows when registering */}
             {authMode === 'signup' && (
               <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required 
                 className="bg-zinc-900 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-green-400 focus:bg-zinc-800 transition-all shadow-inner text-white placeholder:text-zinc-500" />
             )}
 
             <button type="submit" className="bg-gradient-to-r from-green-400 via-emerald-500 to-green-500 text-zinc-950 font-black text-xl py-4 rounded-full shadow-lg shadow-green-500/30 active:scale-95 transition-all mt-3">
-              {authMode === 'login' ? 'Continue ▻' : 'Register Now ▻'}
+              {authMode === 'login' ? 'Continue' : 'Register Now'}
             </button>
           </form>
           
@@ -377,7 +611,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans pb-24 selection:bg-green-500/30 relative overflow-hidden">
+    <div className="h-[100dvh] bg-zinc-950 text-zinc-100 font-sans flex flex-col selection:bg-green-500/30 relative overflow-hidden">
       <BubblyBackground />
       
       {selectedRun && (
@@ -387,14 +621,14 @@ export default function App() {
               <h2 className="text-2xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent truncate pr-4">
                 {selectedRun.userName}'s Run
               </h2>
-              <button onClick={() => setSelectedRun(null)} className="bg-zinc-800 hover:bg-zinc-700 w-8 h-8 rounded-full flex items-center justify-center font-bold transition">✕</button>
+              <button onClick={() => setSelectedRun(null)} className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-full text-sm font-bold transition">Close</button>
             </div>
             
             <div className="text-center mb-8 bg-zinc-950/50 py-6 rounded-3xl shadow-inner border border-zinc-800/50">
               <div className={`text-5xl font-black tracking-tight ${getActiveTextColor()}`}>{formatTime(selectedRun.totalTimeMs)}</div>
               {selectedRun.hasVideo ? (
                 <a href={selectedRun.videoUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-full font-bold text-sm hover:bg-emerald-500/20 transition">
-                  ▶ Watch Video Proof
+                  Watch Video Proof
                 </a>
               ) : (
                 <div className="mt-4 px-4 py-2 bg-zinc-800 text-zinc-500 rounded-full font-bold text-sm inline-block">No Video Proof</div>
@@ -415,21 +649,21 @@ export default function App() {
       )}
 
       {!['timer', 'submission'].includes(view) && (
-        <header className="flex justify-between items-center p-4 px-6 bg-zinc-950/70 backdrop-blur-2xl sticky top-0 z-40 border-b border-white/5 relative">
+        <header className="flex justify-between items-center p-4 px-6 bg-zinc-950/70 backdrop-blur-2xl shrink-0 z-40 border-b border-white/5 relative">
           <div onClick={() => setView('home')} className="flex items-center gap-2 cursor-pointer group">
             <img src={logo} alt="Logo" className="h-10 object-contain drop-shadow-[0_0_10px_rgba(34,197,94,0.3)] transition-transform group-hover:scale-105" />
           </div>
           <div className="flex gap-2">
-            <button onClick={() => setView('friends')} className="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-full text-sm font-bold shadow-sm transition-all active:scale-95">👥 Network Hub</button>
+            <button onClick={() => setView('friends')} className="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-full text-sm font-bold shadow-sm transition-all active:scale-95">👥 My Network</button>
             <button onClick={() => setView('profile')} className="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-full text-sm font-bold shadow-sm transition-all active:scale-95">⚙️ Profile</button>
           </div>
         </header>
       )}
 
-      <div className="relative z-10 w-full">
+      <main className="flex-1 min-h-0 overflow-y-auto relative z-10 w-full pb-10">
         {view === 'profile' && (
           <div className="p-6 max-w-sm mx-auto mt-6">
-            <button onClick={() => setView('home')} className="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center mb-6 hover:bg-zinc-800 transition shadow-sm border border-zinc-800">←</button>
+            <button onClick={() => setView('home')} className="px-5 py-2 bg-zinc-900 rounded-full text-sm font-bold mb-6 hover:bg-zinc-800 transition shadow-sm border border-zinc-800 w-fit">Back</button>
             <h2 className="text-3xl font-black mb-8">Edit Profile</h2>
             <form onSubmit={handleUpdateProfile} className="flex flex-col gap-4">
               <div>
@@ -439,7 +673,7 @@ export default function App() {
                   className="w-full bg-zinc-900 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-green-400 focus:bg-zinc-800 transition-all font-bold text-lg"
                 />
               </div>
-              <button type="submit" className="w-full bg-gradient-to-r from-green-400 to-emerald-500 text-zinc-950 py-4 rounded-full font-black text-lg shadow-lg shadow-green-500/30 active:scale-95 transition-all mt-4">Save Changes ▻</button>
+              <button type="submit" className="w-full bg-gradient-to-r from-green-400 to-emerald-500 text-zinc-950 py-4 rounded-full font-black text-lg shadow-lg shadow-green-500/30 active:scale-95 transition-all mt-4">Save Changes</button>
               <button type="button" onClick={() => signOut(auth)} className="w-full bg-zinc-900 text-red-400 hover:bg-red-500/10 py-4 rounded-full font-bold border border-zinc-800 transition-all mt-3">Log Out</button>
             </form>
           </div>
@@ -447,15 +681,15 @@ export default function App() {
 
         {view === 'friends' && (
           <div className="p-6 max-w-md mx-auto mt-6">
-            <button onClick={() => setView('home')} className="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center mb-6 hover:bg-zinc-800 transition shadow-sm border border-zinc-800">←</button>
-            <h2 className="text-3xl font-black mb-6">Network Hub</h2>
+            <button onClick={() => setView('home')} className="px-5 py-2 bg-zinc-900 rounded-full text-sm font-bold mb-6 hover:bg-zinc-800 transition shadow-sm border border-zinc-800 w-fit">Back</button>
+            <h2 className="text-3xl font-black mb-6">My Network</h2>
             
             <form onSubmit={handleAddFriend} className="flex gap-2 mb-8 bg-zinc-900/80 border border-zinc-700 rounded-full p-1.5 shadow-inner">
               <input 
                 type="text" placeholder="Enter Runner's ID" value={friendSearch} onChange={(e) => setFriendSearch(e.target.value)}
-                className="flex-1 bg-transparent px-4 outline-none font-semibold text-white placeholder:text-zinc-600"
+                className="flex-1 bg-transparent px-4 outline-none font-semibold text-white placeholder:text-zinc-600 w-full"
               />
-              <button type="submit" className="bg-green-500 text-zinc-950 px-6 py-3 rounded-full font-black shadow-md hover:bg-green-400 transition-all">Follow ▻</button>
+              <button type="submit" className="bg-green-500 text-zinc-950 px-6 py-3 rounded-full font-black shadow-md hover:bg-green-400 transition-all">Follow</button>
             </form>
 
             <div className="flex mb-4 bg-zinc-900 p-1.5 rounded-2xl shadow-inner border border-zinc-800">
@@ -517,7 +751,7 @@ export default function App() {
                   className={`bg-gradient-to-br ${zone.colors} p-6 rounded-[2.5rem] flex flex-col items-center justify-center aspect-square active:scale-95 transition-all shadow-xl hover:-translate-y-1`}
                 >
                   <span className="text-5xl mb-3 drop-shadow-md bg-white/20 w-20 h-20 rounded-full flex items-center justify-center">{zone.icon}</span>
-                  <span className="font-black text-zinc-950 text-xl tracking-tight drop-shadow-sm">{zone.title} ▻</span>
+                  <span className="font-black text-zinc-950 text-xl tracking-tight drop-shadow-sm">{zone.title}</span>
                 </button>
               ))}
             </div>
@@ -525,157 +759,154 @@ export default function App() {
         )}
 
         {view === 'categoryList' && activeZone && (
-          <div className="p-6 max-w-4xl mx-auto">
-            <button onClick={() => setView('home')} className="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center mb-6 hover:bg-zinc-800 transition shadow-sm border border-zinc-800">←</button>
-            
-            <div className="flex items-center gap-4 mb-8 bg-zinc-900 p-3 rounded-full border border-zinc-800 w-full max-w-sm shadow-inner">
-              <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${activeZone.colors} flex items-center justify-center text-3xl shadow-lg`}>
-                {activeZone.icon}
-              </div>
-              <h1 className="text-2xl font-black">{activeZone.title} Sector</h1>
-            </div>
+  <div className="p-6 max-w-4xl mx-auto">
+    <button onClick={() => setView('home')} className="px-5 py-2 bg-zinc-900 rounded-full text-sm font-bold mb-6 hover:bg-zinc-800 transition shadow-sm border border-zinc-800 w-fit">Back</button>
+    
+    <div className="flex items-center gap-4 mb-8 bg-zinc-900 p-3 rounded-full border border-zinc-800 w-full max-w-sm shadow-inner">
+      <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${activeZone.colors} flex items-center justify-center text-3xl shadow-lg shrink-0`}>
+        {activeZone.icon}
+      </div>
+      <h1 className="text-2xl font-black">{activeZone.title} Sector</h1>
+    </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Object.keys(TASK_LIST)
-                .filter(catKey => TASK_LIST[catKey].zone === activeZone.id)
-                .map(catKey => {
-                  const catData = TASK_LIST[catKey];
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {TASK_LIST[activeZone.id]?.categories.map(catData => (
+        <button key={catData.id} onClick={() => { setActiveCategory(catData); setActiveRun(catData.runs[0]); setView('runList'); }} 
+          className="bg-zinc-900 hover:bg-zinc-800/50 p-6 rounded-full text-left font-bold text-lg active:scale-95 flex justify-between items-center transition-all group border border-zinc-800 shadow-sm"
+        >
+          <span className="text-white flex items-center gap-3">
+            <span className={'w-3 h-3 rounded-full bg-gradient-to-br shrink-0 ' + getActiveTab()}></span>
+            {catData.title}
+          </span> 
+          <span className="bg-zinc-950 text-zinc-600 group-hover:bg-green-500 group-hover:text-zinc-950 px-4 py-2 rounded-full text-sm font-semibold transition-all">View</span>
+        </button>
+      ))}
+    </div>
+  </div>
+)}
+
+{view === 'runList' && activeCategory && activeRun && (
+  <div className="flex flex-col h-full max-w-4xl mx-auto w-full relative">
+    <div className="p-6 pb-2 shrink-0">
+      <button onClick={() => setView('categoryList')} className="px-5 py-2 bg-zinc-900 rounded-full text-sm font-bold mb-4 hover:bg-zinc-800 transition shadow-sm border border-zinc-800 w-fit">Back</button>
+      <h1 className="text-sm font-bold mb-2 text-zinc-500 uppercase tracking-widest">{activeCategory.title} Categories</h1>
+      
+      <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-bubbly-green">
+        {activeCategory.runs.map(run => (
+          <button key={run.id} onClick={() => setActiveRun(run)} 
+            className={'whitespace-nowrap px-6 py-3 rounded-full text-sm font-bold transition-all shadow-sm ' + (activeRun.id === run.id ? 'bg-gradient-to-r ' + getActiveTab() + ' text-zinc-950' : 'bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white')}>
+            {run.title}
+          </button>
+        ))}
+      </div>
+
+      <button onClick={() => { setElapsedMs(0); setCurrentSplitIndex(0); setRecordedSplits([]); setIsRunning(false); setView('timer'); }} 
+        className={'w-full mt-3 text-zinc-950 font-black text-xl py-5 rounded-[2rem] active:scale-95 shadow-xl transition-all flex items-center justify-center gap-3 ' + getPrimaryButton()}>
+        ⏱ Enter LiveSplit
+      </button>
+    </div>
+
+    <div className="flex-1 p-6 relative pr-4">
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex gap-2 bg-zinc-900 p-1.5 rounded-2xl shadow-inner border border-zinc-800">
+          <button onClick={() => setLeaderboardTab('global')} className={'px-6 py-2.5 text-sm font-bold rounded-xl transition-all ' + (leaderboardTab === 'global' ? 'bg-zinc-700 text-white shadow-md' : 'text-zinc-500 hover:text-white')}>Global</button>
+          <button onClick={() => setLeaderboardTab('friends')} className={'px-6 py-2.5 text-sm font-bold rounded-xl transition-all ' + (leaderboardTab === 'friends' ? 'bg-zinc-700 text-white shadow-md' : 'text-zinc-500 hover:text-white')}>Following</button>
+        </div>
+        
+        <button onClick={() => setHideRepeats(!hideRepeats)} className="bg-zinc-900 hover:bg-zinc-800 px-4 py-2.5 rounded-xl border border-zinc-800 text-sm font-bold text-zinc-300 transition-all flex items-center gap-2 shadow-sm">
+          <div className={'w-4 h-4 rounded-md flex items-center justify-center transition-all shrink-0 ' + (hideRepeats ? getGlowColor() + ' ' + getActiveTab() + ' text-zinc-950' : 'bg-zinc-800 border border-zinc-600')}>
+            {hideRepeats && '✓'}
+          </div>
+          Hide Repeats
+        </button>
+      </div>
+
+      <div className="space-y-3">
+        {displayedLeaderboard.length === 0 ? (
+          <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl p-12 text-center">
+            <span className="text-4xl mb-4 block">👻</span>
+            <p className="text-zinc-500 font-bold text-lg">Empty database.<br/>Submit the first time!</p>
+          </div>
+        ) : (
+          displayedLeaderboard.map((run, i) => (
+            <div key={run.id} onClick={() => setSelectedRun(run)} 
+              className={'flex items-center justify-between p-5 rounded-[2.2rem] cursor-pointer hover:scale-[1.01] transition-all shadow border ' + (i === 0 ? 'bg-zinc-900 border ' + getActiveTextColor() + ' ' + getGlowColor() : 'bg-zinc-900 border border-zinc-800 hover:bg-zinc-800')}>
+              
+              <div className="flex items-center gap-4">
+                <div className={'w-10 h-10 rounded-full flex items-center justify-center font-black text-xl shadow-inner shrink-0 ' + (i === 0 ? 'bg-white/10 text-white shadow-lg' : 'bg-zinc-800 text-zinc-400')}>
+                  {i + 1}
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-bold text-lg text-white flex items-center gap-2 truncate pr-2 max-w-[200px]">
+                    {run.userName} 
+                    {run.userId === user.uid && <span className="bg-zinc-800 text-zinc-400 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">You</span>}
+                  </span>
+                  
+                  <div className="mt-1.5">
+                    {run.hasVideo ? (
+                      <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-[10px] font-bold border border-emerald-500/30">✓ Video</span>
+                    ) : (
+                      <span className="px-3 py-1 bg-zinc-800 text-zinc-500 rounded-full text-[10px] font-bold border border-zinc-700">No Video</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className={'font-black tabular-nums text-2xl tracking-tight ' + (i === 0 ? getActiveTextColor() : 'text-zinc-200')}>
+                {run.totalTimeMs ? formatTime(run.totalTimeMs) : '-'}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  </div>
+)}
+        {/*TIMER VIEW*/}
+        {view === 'timer' && activeRun && (
+          <div className="fixed inset-0 bg-zinc-950 flex flex-col p-4 sm:p-6 z-50 touch-none font-sans overflow-hidden">
+            <BubblyBackground />
+            
+            <div className="w-full max-w-md mx-auto h-full flex flex-col relative">
+              {/* Header */}
+              <div className="flex justify-between items-center mb-4 bg-zinc-900 p-2 pl-4 pr-2 rounded-full border border-zinc-800 shadow-inner shrink-0">
+                <span className="text-sm font-bold text-white truncate pr-4">{activeRun.title}</span>
+                <button onClick={cancelRun} className="bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded-full text-xs font-bold transition-all shadow-md active:scale-95 shrink-0">Abort</button>
+              </div>
+              
+              {/* Splits (Scrolls internally if there are many) */}
+              <div className="flex-1 min-h-0 overflow-y-auto space-y-2 pr-2 scrollbar-bubbly-green">
+                {activeRun.splits.map((split, idx) => {
+                  const isCompleted = idx < currentSplitIndex || (!isRunning && recordedSplits.length > 0);
+                  const isActive = idx === currentSplitIndex && isRunning;
                   return (
-                    <button key={catKey} onClick={() => { setActiveCategory(catData); setActiveRun(catData.runs[0]); setView('runList'); }} 
-                      className="bg-zinc-900 hover:bg-zinc-800/50 p-6 rounded-full text-left font-bold text-lg active:scale-95 flex justify-between items-center transition-all group border border-zinc-800 shadow-sm"
-                    >
-                      <span className="text-white flex items-center gap-3">
-                        <span className={'w-3 h-3 rounded-full bg-gradient-to-br ' + getActiveTab()}></span>
-                        {catData.title}
-                      </span> 
-                      <span className="bg-zinc-950 text-zinc-600 group-hover:bg-green-500 group-hover:text-zinc-950 px-4 py-2 rounded-full text-sm font-semibold transition-all">View ◅</span>
-                    </button>
+                    <div key={idx} className={'flex justify-between p-4 sm:p-5 rounded-3xl transition-all duration-300 border shadow-sm ' + (isActive ? 'bg-zinc-800 border-2 scale-[1.02] ' + getActiveBorder() + ' ' + getActiveTextColor() + ' ' + getGlowColor() : 'bg-zinc-900 border-zinc-800 text-zinc-400') + (isCompleted ? ' opacity-40' : '')}>
+                      <span className="text-lg font-bold tracking-tight">{split}</span>
+                      <span className="text-xl font-bold tabular-nums">{isCompleted ? formatTime(recordedSplits[idx]) : '-:--.--'}</span>
+                    </div>
                   );
                 })}
-            </div>
-          </div>
-        )}
-
-        {view === 'runList' && activeCategory && activeRun && (
-          <div className="flex flex-col h-[calc(100vh-80px)] max-w-4xl mx-auto w-full relative">
-            <div className="p-6 pb-2 shrink-0">
-              <button onClick={() => setView('categoryList')} className="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center mb-4 hover:bg-zinc-800 transition shadow-sm border border-zinc-800">←</button>
-              <h1 className="text-sm font-bold mb-2 text-zinc-500 uppercase tracking-widest">{activeCategory.title} Categories</h1>
-              
-              <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-bubbly-green">
-                {activeCategory.runs.map(run => (
-                  <button key={run.id} onClick={() => setActiveRun(run)} 
-                    className={'whitespace-nowrap px-6 py-3 rounded-full text-sm font-bold transition-all shadow-sm ' + (activeRun.id === run.id ? 'bg-gradient-to-r ' + getActiveTab() + ' text-zinc-950' : 'bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white')}>
-                    {run.title}
-                  </button>
-                ))}
               </div>
 
-              <button onClick={() => { setElapsedMs(0); setCurrentSplitIndex(0); setRecordedSplits([]); setIsRunning(false); setView('timer'); }} 
-                className={'w-full mt-3 text-zinc-950 font-black text-xl py-5 rounded-[2rem] active:scale-95 shadow-xl transition-all flex items-center justify-center gap-3 ' + getPrimaryButton()}>
-                ⏱ Enter LiveSplit ◅
-              </button>
-            </div>
-
-            <main className="flex-1 min-h-0 p-6 overflow-y-auto relative pr-2 scrollbar-bubbly-green">
-              <div className="flex justify-between items-center mb-6">
-                <div className="flex gap-2 bg-zinc-900 p-1.5 rounded-2xl shadow-inner border border-zinc-800">
-                  <button onClick={() => setLeaderboardTab('global')} className={'px-6 py-2.5 text-sm font-bold rounded-xl transition-all ' + (leaderboardTab === 'global' ? 'bg-zinc-700 text-white shadow-md' : 'text-zinc-500 hover:text-white')}>Global</button>
-                  <button onClick={() => setLeaderboardTab('friends')} className={'px-6 py-2.5 text-sm font-bold rounded-xl transition-all ' + (leaderboardTab === 'friends' ? 'bg-zinc-700 text-white shadow-md' : 'text-zinc-500 hover:text-white')}>Following</button>
+              {/* Giant Timer */}
+              <div className="my-6 bg-zinc-950/80 p-6 rounded-[3rem] border border-zinc-800 shadow-inner flex justify-center shrink-0">
+                <div className={`text-[15vw] sm:text-[5rem] leading-none font-black tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] text-white ${isRunning ? 'animate-timer-shake text-green-400 drop-shadow-[0_0_20px_rgba(74,222,128,0.4)]' : ''}`}>
+                  {formatTime(elapsedMs)}
                 </div>
-                
-                <button onClick={() => setHideRepeats(!hideRepeats)} className="bg-zinc-900 hover:bg-zinc-800 px-4 py-2.5 rounded-xl border border-zinc-800 text-sm font-bold text-zinc-300 transition-all flex items-center gap-2 shadow-sm">
-                  <div className={'w-4 h-4 rounded-md flex items-center justify-center transition-all ' + (hideRepeats ? getGlowColor() + ' ' + getActiveTab() + ' text-zinc-950' : 'bg-zinc-800 border border-zinc-600')}>
-                    {hideRepeats && '✓'}
-                  </div>
-                  Hide Repeats
+              </div>
+              
+              {/* Giant Button - Standardized size without vh */}
+              <div className="pb-4 shrink-0">
+                <button onClick={handleSplit} className={'w-full py-8 min-h-[120px] rounded-[3rem] text-4xl sm:text-5xl font-black transition-all active:scale-95 shadow-xl ' + (!isRunning ? 'bg-white text-zinc-950 hover:bg-zinc-200' : getPrimaryButton() + ' text-zinc-950')}>
+                  {!isRunning && recordedSplits.length === 0 ? 'Start' : 'Split'}
                 </button>
               </div>
-
-              <div className="space-y-3">
-                {displayedLeaderboard.length === 0 ? (
-                  <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl p-12 text-center">
-                    <span className="text-4xl mb-4 block">👻</span>
-                    <p className="text-zinc-500 font-bold text-lg">Empty database.<br/>Submit the first time!</p>
-                  </div>
-                ) : (
-                  displayedLeaderboard.map((run, i) => (
-                    <div key={run.id} onClick={() => setSelectedRun(run)} 
-                      className={'flex items-center justify-between p-5 rounded-[2.2rem] cursor-pointer hover:scale-[1.01] transition-all shadow border ' + (i === 0 ? 'bg-zinc-900 border ' + getActiveTextColor() + ' ' + getGlowColor() : 'bg-zinc-900 border border-zinc-800 hover:bg-zinc-800')}>
-                      
-                      <div className="flex items-center gap-4">
-                        <div className={'w-10 h-10 rounded-full flex items-center justify-center font-black text-xl shadow-inner ' + (i === 0 ? 'bg-white/10 text-white shadow-lg' : 'bg-zinc-800 text-zinc-400')}>
-                          {i + 1}
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-bold text-lg text-white flex items-center gap-2 truncate pr-2 max-w-[200px]">
-                            {run.userName} 
-                            {run.userId === user.uid && <span className="bg-zinc-800 text-zinc-400 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">You</span>}
-                          </span>
-                          
-                          <div className="mt-1.5">
-                            {run.hasVideo ? (
-                              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-[10px] font-bold border border-emerald-500/30">✓ Video</span>
-                            ) : (
-                              <span className="px-3 py-1 bg-zinc-800 text-zinc-500 rounded-full text-[10px] font-bold border border-zinc-700">No Video</span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className={'font-black tabular-nums text-2xl tracking-tight ' + (i === 0 ? getActiveTextColor() : 'text-zinc-200')}>
-                        {run.totalTimeMs ? formatTime(run.totalTimeMs) : '-'}
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
-            </main>
-          </div>
-        )}
-
-        {/* TIMER VIEW (SCROLL-LOCKED TO VIEWPORT & GIANT BUTTON) */}
-        {view === 'timer' && activeRun && (
-          <div className="flex flex-col h-[100dvh] p-4 sm:p-6 max-w-md mx-auto w-full relative z-10 font-sans overflow-hidden">
-            
-            {/* Header */}
-            <div className="flex justify-between items-center mb-4 bg-zinc-900 p-2 pl-4 pr-2 rounded-full border border-zinc-800 shadow-inner shrink-0">
-              <span className="text-sm font-bold text-white truncate pr-4">{activeRun.title}</span>
-              <button onClick={cancelRun} className="bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded-full text-xs font-bold transition-all shadow-md active:scale-95">Abort ✕</button>
-            </div>
-            
-            {/* Splits (Scrolls internally if there are many) */}
-            <div className="flex-1 min-h-0 overflow-y-auto space-y-2 pr-2 scrollbar-bubbly-green">
-              {activeRun.splits.map((split, idx) => {
-                const isCompleted = idx < currentSplitIndex || (!isRunning && recordedSplits.length > 0);
-                const isActive = idx === currentSplitIndex && isRunning;
-                return (
-                  <div key={idx} className={'flex justify-between p-4 sm:p-5 rounded-3xl transition-all duration-300 border shadow-sm ' + (isActive ? 'bg-zinc-800 border-2 scale-[1.02] ' + getActiveBorder() + ' ' + getActiveTextColor() + ' ' + getGlowColor() : 'bg-zinc-900 border-zinc-800 text-zinc-400') + (isCompleted ? ' opacity-40' : '')}>
-                    <span className="text-lg font-bold tracking-tight">{split}</span>
-                    <span className="text-xl font-bold tabular-nums">{isCompleted ? formatTime(recordedSplits[idx]) : '-:--.--'}</span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Giant Timer */}
-            <div className="my-6 bg-zinc-950/80 p-6 rounded-[3rem] border border-zinc-800 shadow-inner flex justify-center shrink-0">
-              <div className={`text-[15vw] sm:text-[5rem] leading-none font-black tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] text-white ${isRunning ? 'animate-timer-shake text-green-400 drop-shadow-[0_0_20px_rgba(74,222,128,0.4)]' : ''}`}>
-                {formatTime(elapsedMs)}
-              </div>
-            </div>
-            
-            {/* Giant Button */}
-            <div className="pb-4 shrink-0">
-              <button onClick={handleSplit} className={'w-full h-[18vh] min-h-[100px] rounded-[3rem] text-4xl sm:text-5xl font-black transition-all active:scale-95 shadow-xl ' + (!isRunning ? 'bg-white text-zinc-950 hover:bg-zinc-200' : getPrimaryButton() + ' text-zinc-950')}>
-                {!isRunning && recordedSplits.length === 0 ? 'Start ▻' : 'Split'}
-              </button>
             </div>
           </div>
         )}
 
         {view === 'submission' && (
-          <div className="flex flex-col h-screen p-6 justify-center max-w-sm mx-auto w-full relative z-10 font-sans">
+          <div className="flex flex-col h-full p-6 justify-center max-w-sm mx-auto w-full relative z-10 font-sans">
             <div className="bg-gradient-to-br from-green-400 to-emerald-600 p-1 rounded-[2.5rem] shadow-2xl shadow-green-500/20 mb-8">
               <div className="bg-zinc-950 p-8 text-center rounded-[2.4rem] h-full w-full border border-white/5">
                 <h2 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-4">Run Complete</h2>
@@ -685,19 +916,19 @@ export default function App() {
             
             <form onSubmit={handleFinalSubmit} className="flex flex-col gap-4">
               <div className="bg-zinc-900 p-6 rounded-3xl border border-zinc-800 shadow-inner">
-                <label className="text-sm font-bold text-zinc-400 mb-3 blockml-2">Proof Link (YouTube/VOD)</label>
+                <label className="text-sm font-bold text-zinc-400 mb-3 block ml-2">Proof Link (YouTube/VOD)</label>
                 <input 
                   type="url" placeholder="https://youtube.com/..." value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)}
                   className="w-full bg-zinc-950 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-green-500 text-white placeholder:text-zinc-600 font-semibold"
                 />
               </div>
-              <button type="submit" className={'w-full text-zinc-950 py-5 rounded-full font-black text-xl active:scale-95 mt-4 shadow-xl transition-all ' + getPrimaryButton()}>Upload Run ▻</button>
+              <button type="submit" className={'w-full text-zinc-950 py-5 rounded-full font-black text-xl active:scale-95 mt-4 shadow-xl transition-all ' + getPrimaryButton()}>Upload Run</button>
               <button type="button" onClick={cancelRun} className="w-full text-zinc-500 py-4 rounded-full font-bold text-sm active:scale-95 hover:bg-zinc-900 transition-all mt-2 border border-zinc-800">Discard Data</button>
             </form>
           </div>
         )}
 
-      </div>
+      </main>
     </div>
   );
 }
