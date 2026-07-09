@@ -9,6 +9,8 @@ import {
   query, where, orderBy, limit, getDocs, updateDoc, arrayUnion, arrayRemove 
 } from 'firebase/firestore'; 
 
+const googleProvider = new GoogleAuthProvider();
+
 import logo from './assets/anypercentlogoTrans.png';
 
 const ZONES = [
@@ -348,7 +350,7 @@ export default function App() {
     try {
       let result;
       if (isGoogle) {
-        result = await signInWithPopup(auth, new GoogleAuthProvider());
+        result = await signInWithPopup(auth, googleProvider);
       } else if (authMode === 'signup') {
         if (password !== confirmPassword) return alert("Passwords do not match!");
         result = await createUserWithEmailAndPassword(auth, email, password);
@@ -357,7 +359,11 @@ export default function App() {
       }
       await saveUserToDatabase(result.user, result.user.displayName);
     } catch (err) {
-      alert(err.message);
+      if (err.code === 'auth/popup-blocked') {
+        alert("Your browser blocked the sign-in popup. Please allow popups for this site or try a different browser.");
+      } else {
+        alert(err.message);
+      }
     }
   };
 
