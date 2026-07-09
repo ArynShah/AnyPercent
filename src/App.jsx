@@ -23,257 +23,62 @@ const ZONES = [
 ];
 
 const TASK_LIST = {
+  // ... (Keep all your exact TASK_LIST data here, omitted for brevity but remains unchanged)
   kitchen: {
-    id: 'kitchen',
-    zone: 'kitchen',
-    title: 'Kitchen',
+    id: 'kitchen', zone: 'kitchen', title: 'Kitchen',
     categories: [
-      {
-        id: 'dishes',
-        title: 'Washing dishes',
-        runs: [
-          {
-            id: 'wash_10_dishes',
-            title: 'Wash 10 dishes by hand',
-            splits: Array.from({ length: 10 }, (_, i) => `Dish ${i + 1}`)
-          },
-          {
-            id: 'unload_dishwasher',
-            title: 'Unload the dishwasher',
-            splits: ['Bottom rack', 'Top rack', 'Cutlery', 'Complete']
-          }
-        ]
-      },
-      {
-        id: 'cooking',
-        title: 'Cooking',
-        runs: [
-          {
-            id: 'scrambled_eggs',
-            title: 'Scrambled eggs',
-            splits: ['Prep', 'Cook', 'Plate']
-          },
-          {
-            id: 'fried_rice',
-            title: 'Fried rice',
-            splits: ['Prep', 'Cook', 'Serve']
-          }
-        ]
-      },
-      {
-        id: 'fruits_veg',
-        title: 'Fruits & vegetables',
-        runs: [
-          {
-            id: 'peel_orange',
-            title: 'Peeling orange',
-            splits: ['Peel', 'Separate']
-          },
-          {
-            id: 'slice_apple',
-            title: 'Slicing an apple',
-            splits: ['Slice', 'Finish']
-          },
-          {
-            id: 'dice_onion',
-            title: 'Dicing an onion',
-            splits: ['Dice', 'Finish']
-          },
-          {
-            id: 'peel_potato',
-            title: 'Peel a potato',
-            splits: ['Complete']
-          }
-        ]
-      }
+      { id: 'dishes', title: 'Washing dishes', runs: [{ id: 'wash_10_dishes', title: 'Wash 10 dishes by hand', splits: Array.from({ length: 10 }, (_, i) => `Dish ${i + 1}`) }, { id: 'unload_dishwasher', title: 'Unload the dishwasher', splits: ['Bottom rack', 'Top rack', 'Cutlery', 'Complete'] }] },
+      { id: 'cooking', title: 'Cooking', runs: [{ id: 'scrambled_eggs', title: 'Scrambled eggs', splits: ['Prep', 'Cook', 'Plate'] }, { id: 'fried_rice', title: 'Fried rice', splits: ['Prep', 'Cook', 'Serve'] }] },
+      { id: 'fruits_veg', title: 'Fruits & vegetables', runs: [{ id: 'peel_orange', title: 'Peeling orange', splits: ['Peel', 'Separate'] }, { id: 'slice_apple', title: 'Slicing an apple', splits: ['Slice', 'Finish'] }, { id: 'dice_onion', title: 'Dicing an onion', splits: ['Dice', 'Finish'] }, { id: 'peel_potato', title: 'Peel a potato', splits: ['Complete'] }] }
     ]
   },
-
   food: {
-    id: 'food',
-    zone: 'food',
-    title: 'Food',
+    id: 'food', zone: 'food', title: 'Food',
     categories: [
-      {
-        id: 'simple',
-        title: 'Simple food',
-        runs: [
-          {
-            id: 'banana',
-            title: 'Peel + eat banana',
-            splits: ['Complete']
-          }
-        ]
-      },
-      {
-        id: 'hotdog',
-        title: 'Hot dog',
-        runs: [
-          { id: 'hotdog_1', title: '1 hot dog', splits: ['Complete'] },
-          { id: 'hotdog_3', title: '3 hot dogs', splits: ['Hot dog 1', 'Hot dog 2', 'Hot dog 3'] },
-          { id: 'hotdog_5', title: '5 hot dogs', splits: ['Hot dog 1','Hot dog 2','Hot dog 3','Hot dog 4','Hot dog 5'] }
-        ]
-      },
-      {
-        id: 'water',
-        title: 'Water',
-        runs: [
-          { id: 'water_12oz', title: '12 oz', splits: ['Finish'] },
-          { id: 'water_1l', title: '1 liter', splits: ['Halfway', 'Finish'] }
-        ]
-      },
-      {
-        id: 'icecream',
-        title: 'Ice cream',
-        runs: [
-          { id: 'icecream_1', title: '1 scoop', splits: ['Complete'] },
-          { id: 'icecream_2', title: '2 scoops', splits: ['Scoop 1', 'Scoop 2'] },
-          { id: 'icecream_3', title: '3 scoops', splits: ['Scoop 1', 'Scoop 2', 'Scoop 3'] }
-        ]
-      },
-      {
-        id: 'donut',
-        title: 'Donut',
-        runs: [
-          { id: 'donut_3', title: '3 donuts', splits: ['Donut 1','Donut 2','Donut 3'] },
-          { id: 'donut_half', title: 'Half dozen', splits: ['Donut 1','Donut 2','Donut 3','Donut 4','Donut 5','Donut 6'] }
-        ]
-      },
-      {
-        id: 'pizza',
-        title: 'Pizza',
-        runs: [
-          { id: 'pizza_1', title: '1 slice', splits: ['Complete'] },
-          { id: 'pizza_3', title: '3 slices', splits: ['Slice 1','Slice 2','Slice 3'] },
-          { id: 'pizza_6', title: '6 slices', splits: ['Slice 1','Slice 2','Slice 3','Slice 4','Slice 5','Slice 6'] }
-        ]
-      }
+      { id: 'simple', title: 'Simple food', runs: [{ id: 'banana', title: 'Peel + eat banana', splits: ['Complete'] }] },
+      { id: 'hotdog', title: 'Hot dog', runs: [{ id: 'hotdog_1', title: '1 hot dog', splits: ['Complete'] }, { id: 'hotdog_3', title: '3 hot dogs', splits: ['Hot dog 1', 'Hot dog 2', 'Hot dog 3'] }, { id: 'hotdog_5', title: '5 hot dogs', splits: ['Hot dog 1','Hot dog 2','Hot dog 3','Hot dog 4','Hot dog 5'] }] },
+      { id: 'water', title: 'Water', runs: [{ id: 'water_12oz', title: '12 oz', splits: ['Finish'] }, { id: 'water_1l', title: '1 liter', splits: ['Halfway', 'Finish'] }] },
+      { id: 'icecream', title: 'Ice cream', runs: [{ id: 'icecream_1', title: '1 scoop', splits: ['Complete'] }, { id: 'icecream_2', title: '2 scoops', splits: ['Scoop 1', 'Scoop 2'] }, { id: 'icecream_3', title: '3 scoops', splits: ['Scoop 1', 'Scoop 2', 'Scoop 3'] }] },
+      { id: 'donut', title: 'Donut', runs: [{ id: 'donut_3', title: '3 donuts', splits: ['Donut 1','Donut 2','Donut 3'] }, { id: 'donut_half', title: 'Half dozen', splits: ['Donut 1','Donut 2','Donut 3','Donut 4','Donut 5','Donut 6'] }] },
+      { id: 'pizza', title: 'Pizza', runs: [{ id: 'pizza_1', title: '1 slice', splits: ['Complete'] }, { id: 'pizza_3', title: '3 slices', splits: ['Slice 1','Slice 2','Slice 3'] }, { id: 'pizza_6', title: '6 slices', splits: ['Slice 1','Slice 2','Slice 3','Slice 4','Slice 5','Slice 6'] }] }
     ]
   },
-
   bedroom: {
-    id: 'bedroom',
-    zone: 'bedroom',
-    title: 'Bedroom',
+    id: 'bedroom', zone: 'bedroom', title: 'Bedroom',
     categories: [
-      {
-        id: 'routine',
-        title: 'Routine',
-        runs: [
-          { id: 'morning_routine', title: 'Morning Routine', splits: ['Wake up', 'Get ready'] },
-          { id: 'getting_undressed', title: 'Getting undressed', splits: ['Complete'] }
-        ]
-      },
-      {
-        id: 'bed',
-        title: 'Making a bed',
-        runs: [
-          { id: 'bed_king', title: 'King', splits: ['Complete'] },
-          { id: 'bed_queen', title: 'Queen', splits: ['Complete'] },
-          { id: 'bed_twin', title: 'Twin', splits: ['Complete'] },
-          { id: 'bed_bunk', title: 'Bunk', splits: ['Complete'] }
-        ]
-      },
-      {
-        id: 'dressing',
-        title: 'Getting dressed',
-        runs: [
-          { id: 'dress_formal', title: 'Formal (suit)', splits: ['Complete'] },
-          { id: 'dress_casual', title: 'Casual (sweat suit)', splits: ['Complete'] }
-        ]
-      }
+      { id: 'routine', title: 'Routine', runs: [{ id: 'morning_routine', title: 'Morning Routine', splits: ['Wake up', 'Get ready'] }, { id: 'getting_undressed', title: 'Getting undressed', splits: ['Complete'] }] },
+      { id: 'bed', title: 'Making a bed', runs: [{ id: 'bed_king', title: 'King', splits: ['Complete'] }, { id: 'bed_queen', title: 'Queen', splits: ['Complete'] }, { id: 'bed_twin', title: 'Twin', splits: ['Complete'] }, { id: 'bed_bunk', title: 'Bunk', splits: ['Complete'] }] },
+      { id: 'dressing', title: 'Getting dressed', runs: [{ id: 'dress_formal', title: 'Formal (suit)', splits: ['Complete'] }, { id: 'dress_casual', title: 'Casual (sweat suit)', splits: ['Complete'] }] }
     ]
   },
-
   washroom: {
-    id: 'washroom',
-    zone: 'washroom',
-    title: 'Washroom',
+    id: 'washroom', zone: 'washroom', title: 'Washroom',
     categories: [
-      {
-        id: 'teeth',
-        title: 'Teeth',
-        runs: [
-          { id: 'teeth', title: 'Teeth cleaning routine', splits: ['Finish'] }
-        ]
-      },
-      {
-        id: 'shower',
-        title: 'Shower',
-        runs: [
-          { id: 'shower', title: 'Shower', splits: ['Wash', 'Rinse', 'Dry'] }
-        ]
-      },
-      {
-        id: 'shaving',
-        title: 'Shaving',
-        runs: [
-          { id: 'shave_full', title: 'Full beard', splits: ['Trim', 'Shave', 'Finish'] },
-          { id: 'shave_stubble', title: 'Stubble', splits: ['Shave', 'Finish'] }
-        ]
-      },
-      {
-        id: 'care',
-        title: 'Care',
-        runs: [
-          { id: 'skincare', title: 'Skin care routine', splits: ['Cleanse', 'Apply', 'Finish'] }
-        ]
-      },
-      {
-        id: 'nails',
-        title: 'Nails',
-        runs: [
-          { id: 'nails_hands', title: 'Hands', splits: ['Left hand', 'Right hand'] },
-          { id: 'nails_feet', title: 'Feet', splits: ['Left foot', 'Right foot'] },
-          { id: 'nails_both', title: 'Both', splits: ['Hands', 'Feet'] }
-        ]
-      }
+      { id: 'teeth', title: 'Teeth', runs: [{ id: 'teeth', title: 'Teeth cleaning routine', splits: ['Finish'] }] },
+      { id: 'shower', title: 'Shower', runs: [{ id: 'shower', title: 'Shower', splits: ['Wash', 'Rinse', 'Dry'] }] },
+      { id: 'shaving', title: 'Shaving', runs: [{ id: 'shave_full', title: 'Full beard', splits: ['Trim', 'Shave', 'Finish'] }, { id: 'shave_stubble', title: 'Stubble', splits: ['Shave', 'Finish'] }] },
+      { id: 'care', title: 'Care', runs: [{ id: 'skincare', title: 'Skin care routine', splits: ['Cleanse', 'Apply', 'Finish'] }] },
+      { id: 'nails', title: 'Nails', runs: [{ id: 'nails_hands', title: 'Hands', splits: ['Left hand', 'Right hand'] }, { id: 'nails_feet', title: 'Feet', splits: ['Left foot', 'Right foot'] }, { id: 'nails_both', title: 'Both', splits: ['Hands', 'Feet'] }] }
     ]
   },
-
   everyday: {
-    id: 'everyday',
-    zone: 'everyday',
-    title: 'Everyday',
+    id: 'everyday', zone: 'everyday', title: 'Everyday',
     categories: [
-      {
-        id: 'shoes',
-        title: 'Shoes',
-        runs: [
-          { id: 'shoe_single', title: 'Single shoe', splits: ['Complete'] },
-          { id: 'shoe_pair', title: '2 shoes', splits: ['Left shoe', 'Right shoe'] },
-          { id: 'lace_full', title: 'Lacing a full shoe', splits: ['Start', 'Middle', 'Finish'] }
-        ]
-      },
-      {
-        id: 'tasks',
-        title: 'Tasks',
-        runs: [
-          { id: 'mcdonalds_kiosk', title: 'McDonalds kiosk', splits: ['Order', 'Pay', 'Complete'] }
-        ]
-      }
+      { id: 'shoes', title: 'Shoes', runs: [{ id: 'shoe_single', title: 'Single shoe', splits: ['Complete'] }, { id: 'shoe_pair', title: '2 shoes', splits: ['Left shoe', 'Right shoe'] }, { id: 'lace_full', title: 'Lacing a full shoe', splits: ['Start', 'Middle', 'Finish'] }] },
+      { id: 'tasks', title: 'Tasks', runs: [{ id: 'mcdonalds_kiosk', title: 'McDonalds kiosk', splits: ['Order', 'Pay', 'Complete'] }] }
     ]
   },
-
   outdoor: {
-    id: 'outdoor',
-    zone: 'outdoor',
-    title: 'Outdoor',
+    id: 'outdoor', zone: 'outdoor', title: 'Outdoor',
     categories: [
-      {
-        id: 'yard',
-        title: 'Yard work',
-        runs: [
-          { id: 'mow_lawn', title: 'Mowing lawn', splits: ['Start', 'Mow', 'Finish'] },
-          { id: 'shovel_snow', title: 'Shoveling snow', splits: ['Start', 'Clear area', 'Finish'] }
-        ]
-      }
+      { id: 'yard', title: 'Yard work', runs: [{ id: 'mow_lawn', title: 'Mowing lawn', splits: ['Start', 'Mow', 'Finish'] }, { id: 'shovel_snow', title: 'Shoveling snow', splits: ['Start', 'Clear area', 'Finish'] }] }
     ]
   }
 };
 
 export default function App() {
   const [user, setUser] = useState(null);
+  const [isGuest, setIsGuest] = useState(false); // NEW: Guest state
   const [userData, setUserData] = useState({ friends: [] }); 
   const [authMode, setAuthMode] = useState('login');
   const [email, setEmail] = useState('');
@@ -316,6 +121,7 @@ export default function App() {
       try {
         setUser(currentUser);
         if (currentUser) {
+          setIsGuest(false); // Reset guest mode if real user logs in
           const userRef = doc(db, 'users', currentUser.uid);
           const userSnap = await getDoc(userRef);
           if (userSnap.exists()) {
@@ -369,6 +175,11 @@ export default function App() {
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
+    if (isGuest) {
+      alert("Guest accounts cannot save profile data. Create an account to customize your profile!");
+      setIsGuest(false);
+      return;
+    }
     if (!newUsername.trim()) return;
     try {
       await updateDoc(doc(db, 'users', user.uid), { displayName: newUsername });
@@ -388,6 +199,20 @@ export default function App() {
 
   useEffect(() => {
     if (view === 'friends') {
+      // NEW: Intercept network fetch for guests and provide fake data
+      if (isGuest) {
+        setResolvedFollowing([
+          { id: 'guest_f1', displayName: 'SpeedRunner99' },
+          { id: 'guest_f2', displayName: 'DishMaster' },
+          { id: 'guest_f3', displayName: 'LaundryLegend' }
+        ]);
+        setResolvedFollowers([
+          { id: 'guest_f4', displayName: 'LawnNinja' },
+          { id: 'guest_f5', displayName: 'CasualAnyPercent' }
+        ]);
+        return; 
+      }
+
       const fetchFollowing = async () => {
         if (userData.friends?.length > 0) {
           const followingData = await Promise.all(
@@ -416,10 +241,15 @@ export default function App() {
       fetchFollowing();
       fetchFollowers();
     }
-  }, [view, userData.friends, user?.uid]);
+  }, [view, userData.friends, user?.uid, isGuest]);
 
   const handleAddFriend = async (e) => {
     e.preventDefault();
+    if (isGuest) {
+      alert("Sign up to start building your actual network!");
+      setIsGuest(false);
+      return;
+    }
     if (!friendSearch.trim()) return;
     try {
       const q = query(collection(db, 'users'), where('displayName', '==', friendSearch));
@@ -439,6 +269,7 @@ export default function App() {
   };
 
   const handleRemoveFriend = async (friendId) => {
+    if (isGuest) return alert("Guest data is mocked. Create an account to manage followers!");
     try {
       await updateDoc(doc(db, 'users', user.uid), { friends: arrayRemove(friendId) });
       setUserData(prev => ({ ...prev, friends: prev.friends.filter(id => id !== friendId) }));
@@ -490,9 +321,19 @@ export default function App() {
     setView('runList');
   };
 
-
   const handleFinalSubmit = async (e) => {
     e.preventDefault();
+    
+    // NEW: Block guests from submitting to Firestore and prompt signup
+    if (isGuest) {
+      const wantToSignup = window.confirm("That was a great time! But you need an account to post runs to the leaderboard. Want to create one now?");
+      if (wantToSignup) {
+        setIsGuest(false);
+        setAuthMode('signup');
+      }
+      return;
+    }
+
     try {
       await addDoc(collection(db, 'runs'), {
         userId: user.uid,
@@ -517,7 +358,8 @@ export default function App() {
 
   let displayedLeaderboard = leaderboard.filter(run => {
     if (leaderboardTab === 'global') return true;
-    return run.userId === user.uid || userData.friends?.includes(run.userId);
+    // Guests won't have real friends to filter by, but we prevent errors with optional chaining
+    return run.userId === user?.uid || userData.friends?.includes(run.userId);
   });
 
   if (hideRepeats) {
@@ -575,7 +417,8 @@ export default function App() {
     </div>
   );
 
-  if (!user) {
+  // NEW: Updated Auth barrier logic
+  if (!user && !isGuest) {
     return (
       <div className="min-h-[100dvh] bg-zinc-950 text-zinc-100 flex flex-col items-center justify-center p-5 relative overflow-hidden font-sans">
         <BubblyBackground />
@@ -606,8 +449,13 @@ export default function App() {
             <div className="h-px bg-white flex-1"></div>
           </div>
 
-          <button onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')} className="w-full mt-6 text-zinc-400 hover:text-white text-sm font-semibold transition">
+          <button onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')} className="w-full text-zinc-400 hover:text-white text-sm font-semibold transition">
             {authMode === 'login' ? "Register a new account" : "Login with existing account"}
+          </button>
+
+          {/* NEW: Guest Button */}
+          <button onClick={() => setIsGuest(true)} className="w-full mt-4 bg-zinc-800/50 hover:bg-zinc-700/50 text-zinc-300 py-3 rounded-2xl text-sm font-bold transition-all border border-zinc-700 shadow-sm active:scale-95">
+            Continue as Guest
           </button>
         </div>
       </div>
@@ -618,6 +466,14 @@ export default function App() {
     <div className="h-[100dvh] bg-zinc-950 text-zinc-100 font-sans flex flex-col selection:bg-green-500/30 relative overflow-hidden">
       <BubblyBackground />
       
+      {/* NEW: Guest warning banner */}
+      {isGuest && (
+         <div className="bg-emerald-500/10 border-b border-emerald-500/20 text-emerald-400 text-xs font-bold py-2 text-center flex items-center justify-center gap-2 z-50 relative shrink-0">
+           <span>👀 You are currently in Guest Mode.</span>
+           <button onClick={() => setIsGuest(false)} className="underline hover:text-emerald-300 transition">Sign up to submit runs!</button>
+         </div>
+      )}
+
       {selectedRun && (
         <div className="fixed inset-0 bg-zinc-950/80 z-50 flex items-center justify-center p-5 backdrop-blur-xl">
           <div className="bg-zinc-900/80 p-8 rounded-[2rem] w-full max-w-md shadow-2xl border border-zinc-800/80">
@@ -675,10 +531,14 @@ export default function App() {
                 <input 
                   type="text" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} required
                   className="w-full bg-zinc-900 border border-zinc-700 rounded-2xl p-4 outline-none focus:border-green-400 focus:bg-zinc-800 transition-all font-bold text-lg"
+                  disabled={isGuest} // NEW: Disable for guests
                 />
               </div>
               <button type="submit" className="w-full bg-gradient-to-r from-green-400 to-emerald-500 text-zinc-950 py-4 rounded-full font-black text-lg shadow-lg shadow-green-500/30 active:scale-95 transition-all mt-4">Save Changes</button>
-              <button type="button" onClick={() => signOut(auth)} className="w-full bg-zinc-900 text-red-400 hover:bg-red-500/10 py-4 rounded-full font-bold border border-zinc-800 transition-all mt-3">Log Out</button>
+              
+              <button type="button" onClick={() => { if(isGuest) setIsGuest(false); else signOut(auth); }} className="w-full bg-zinc-900 text-red-400 hover:bg-red-500/10 py-4 rounded-full font-bold border border-zinc-800 transition-all mt-3">
+                {isGuest ? 'Log In / Sign Up' : 'Log Out'}
+              </button>
             </form>
           </div>
         )}
@@ -843,7 +703,7 @@ export default function App() {
                 <div className="flex flex-col">
                   <span className="font-bold text-lg text-white flex items-center gap-2 truncate pr-2 max-w-[200px]">
                     {run.userName} 
-                    {run.userId === user.uid && <span className="bg-zinc-800 text-zinc-400 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">You</span>}
+                    {run.userId === user?.uid && <span className="bg-zinc-800 text-zinc-400 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">You</span>}
                   </span>
                   
                   <div className="mt-1.5">
