@@ -606,9 +606,6 @@ export default function App() {
             <div className="h-px bg-white flex-1"></div>
           </div>
 
-          <button onClick={(e) => handleAuth(e, true)} className="w-full bg-white hover:bg-zinc-200 text-zinc-900 font-bold text-lg py-4 rounded-full shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2">
-            Continue with Google
-          </button>
           <button onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')} className="w-full mt-6 text-zinc-400 hover:text-white text-sm font-semibold transition">
             {authMode === 'login' ? "Register a new account" : "Login with existing account"}
           </button>
